@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
+import Context from '../context'
 
 const styles = {
   li: {
@@ -30,6 +31,7 @@ const styles = {
 }
 
 function Items({ list, index, onChange }) {
+  let {RemoveItemFromList} = useContext(Context)
   let trigger = styles.notDone
 
  if (list.complete) {
@@ -49,7 +51,7 @@ function Items({ list, index, onChange }) {
         &nbsp;
         {list.title}
       </span>
-      <button style={styles.button}>&times; </button>
+      <button style={styles.button} onClick={() => RemoveItemFromList(list.id)}>&times; </button>
     </li>
   )
 }
