@@ -4,22 +4,18 @@ import Context from './context'
 import AddItem from './Components/AddItemToList'
 
 function App() {
-  const [massive, setMassive] = React.useState([
-    { id: 1, complete: false, title: 'buy milk' },
-    { id: 2, complete: true, title: 'buy bred' },
-    { id: 3, complete: false, title: 'buy soap' }
-  ])
+  let [massive, setMassive] = React.useState([])
 
-React.useEffect(() => {
-  const data = localStorage.getItem('shoppingList')
-  if(data){
-    setMassive(JSON.parse(data))
-  }
-},[])
+  React.useEffect(() => {
+    const data = localStorage.getItem('shoppingList')
+    if (data) {
+      setMassive(JSON.parse(data))
+    }
+  }, [])
 
-React.useEffect(()=>{
-  localStorage.setItem('shoppingList', JSON.stringify(massive))
-})
+  React.useEffect(() => {
+    localStorage.setItem('shoppingList', JSON.stringify(massive))
+  })
 
   function ToggleItem(id) {
     setMassive(
@@ -36,7 +32,18 @@ React.useEffect(()=>{
     setMassive(massive.filter(item => item.id !== id))
   }
 
-  function addItemList(title) {
+  function ClearLocalStorage() {
+    if (localStorage.getItem('shoppingList') !== null) {
+      localStorage.clear('shoppingList')
+      const data12 = localStorage.getItem('shoppingList')
+      setMassive(JSON.parse(data12))
+    }
+  }
+
+  function AddItemList(title) {
+    if (massive === null) {
+      setMassive(massive = [])
+    }
     setMassive(massive.concat([
       {
         title,
@@ -50,10 +57,17 @@ React.useEffect(()=>{
     <Context.Provider value={{ RemoveItemFromList }}>
       <div className='wrapper'>
         <h1>Shopping List</h1>
-        <AddItem onCreate={ addItemList } />
-
-        {massive.length ? <CurrentList massive={massive} onToggle={ToggleItem}/> : <h2>Empty shopping list</h2>}
-
+        <AddItem onCreate={ AddItemList } />
+        {
+          massive !== null && massive.length ?
+            <CurrentList massive={massive} onToggle={ToggleItem}/> :
+            <h2>Empty shopping list</h2>
+        }
+        {
+          massive !== null
+          && massive.length
+          && <button  onClick={() => ClearLocalStorage() }>Delete all</button>
+        }
       </div>
     </Context.Provider>
   )
