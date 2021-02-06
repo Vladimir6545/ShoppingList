@@ -10,6 +10,17 @@ function App() {
     { id: 3, complete: false, title: 'buy soap' }
   ])
 
+React.useEffect(() => {
+  const data = localStorage.getItem('shoppingList')
+  if(data){
+    setMassive(JSON.parse(data))
+  }
+},[])
+
+React.useEffect(()=>{
+  localStorage.setItem('shoppingList', JSON.stringify(massive))
+})
+
   function ToggleItem(id) {
     setMassive(
       massive.map(items => {
