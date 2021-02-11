@@ -13,7 +13,7 @@ const styles = {
     marginBottom: '.5rem'
   },
   input: {
-    marginRight: '1rem'
+    marginRight: '1rem',
   },
   button: {
     background: 'red',

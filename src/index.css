@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+   background: yellow;
 }
 
 code {
@@ -16,4 +17,9 @@ code {
   padding-top: 5rem; 
   margin: 0 auto;
   width: 600px;
+  background: linear-gradient(120grad, rgb(100, 57, 134), rgb(152, 174, 213));
+}
+
+.btnDeleteAll{
+  background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
 }

@@ -35,9 +35,18 @@ function App() {
   function ClearLocalStorage() {
     if (localStorage.getItem('shoppingList') !== null) {
       localStorage.clear('shoppingList')
-      const data12 = localStorage.getItem('shoppingList')
-      setMassive(JSON.parse(data12))
+      const temp = localStorage.getItem('shoppingList')
+      setMassive(JSON.parse(temp))
     }
+  }
+
+  function ClearLocalStorageWithCheckItems() {
+     if (localStorage.getItem('shoppingList') !== null) {
+      const temp = localStorage.getItem('shoppingList')
+      let newList = JSON.parse(temp)
+      newList = newList.filter(item => item.complete === false)
+      setMassive(newList)
+     }
   }
 
   function AddItemList(title) {
@@ -56,7 +65,7 @@ function App() {
   return (
     <Context.Provider value={{ RemoveItemFromList }}>
       <div className='wrapper'>
-        <h1>Shopping List</h1>
+        <h1 style={{ textAlign: 'center' }}>Shopping List</h1>
         <AddItem onCreate={ AddItemList } />
         {
           massive !== null && massive.length ?
@@ -65,8 +74,14 @@ function App() {
         }
         {
           massive !== null
-          && massive.length
-          && <button  onClick={() => ClearLocalStorage() }>Delete all</button>
+          && massive.length > 1
+          && <button className='btnDeleteAll' onClick={() => ClearLocalStorage() }>Delete all</button>
+        }
+        {
+          massive !== null
+          && massive.length > 1
+          && massive.some(item => item.complete === true)
+          && <button className='btnDeleteAll' onClick={() => ClearLocalStorageWithCheckItems() }>Delete check</button>
         }
       </div>
     </Context.Provider>
