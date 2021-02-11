@@ -8,24 +8,28 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '.5rem 1rem',
-    border: '1px solid #ccc',
+    border: 'none',
     borderRadius: '4px',
-    marginBottom: '.5rem'
+    marginBottom: '.5rem',
+
   },
   input: {
     marginRight: '1rem',
+    
   },
   button: {
-    background: 'red',
+    backgroundColor: 'transparent',
     borderRadius: '50%',
-    color: '#fff',
-    border: 'none'
+    color: '#FFA07A',
+    border: 'none',
+    fontWeight: 'bold'
   },
   done: {
-    textDecoration: 'line-through'
+    textDecoration: 'line-through',
   },
-  notDone:{
-      textDecoration: 'none'
+  notDone: {
+    textDecoration: 'none'
+
   }
 
 }
@@ -34,24 +38,27 @@ function Items({ list, index, onChange }) {
   let {RemoveItemFromList} = useContext(Context)
   let trigger = styles.notDone
 
- if (list.complete) {
+  if (list.complete) {
     trigger = (styles.done)
   }
-//console.log(trigger)
+
   return (
     <li style={styles.li}>
+
       <span style={trigger}>
-        <input
-          style={styles.input}
-          type="checkbox"
-          checked={list.complete}
-          onChange={() => onChange(list.id) }
-          />
-        <strong>{index + 1}</strong>
-        &nbsp;
-        {list.title}
+        <label>
+          <input
+            style={styles.input}
+            type="checkbox"
+            checked={list.complete}
+            onChange={() => onChange(list.id) }
+            />
+          <strong>{index + 1}</strong>
+          &nbsp;
+          {list.title}
+        </label>
       </span>
-      <button style={styles.button} onClick={() => RemoveItemFromList(list.id)}>&times; </button>
+      <button style={styles.button} onClick={() => RemoveItemFromList(list.id) }>&times; </button>
     </li>
   )
 }

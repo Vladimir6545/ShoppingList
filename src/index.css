@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   background: yellow;
+   background: #F8F8F8;
 }
 
 code {
@@ -16,10 +16,26 @@ code {
 .wrapper{
   padding-top: 5rem; 
   margin: 0 auto;
-  width: 600px;
-  background: linear-gradient(120grad, rgb(100, 57, 134), rgb(152, 174, 213));
+  width: 80%;
+ background: white;
+}
+
+.singleLine{
+padding-left: 30rem;
+}
+
+.btnDeleteCheckAll{
+  border: none;
+  background-color: transparent;
+  padding-left: 15rem;
+  font-weight: bold;
+  
 }
 
 .btnDeleteAll{
-  background: -webkit-linear-gradient(70deg, #ff6464 40%, #5ac8fa 40%);
+  border: none;
+  background-color: transparent;
+  padding-right: 1rem;
+  font-weight: bold;
+  padding-left: 15rem;
 }

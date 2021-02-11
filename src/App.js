@@ -37,17 +37,24 @@ function App() {
       localStorage.clear('shoppingList')
       const temp = localStorage.getItem('shoppingList')
       setMassive(JSON.parse(temp))
+      HowManyCheckItems()
     }
   }
 
   function ClearLocalStorageWithCheckItems() {
-     if (localStorage.getItem('shoppingList') !== null) {
+    if (localStorage.getItem('shoppingList') !== null) {
       const temp = localStorage.getItem('shoppingList')
       let newList = JSON.parse(temp)
       newList = newList.filter(item => item.complete === false)
       setMassive(newList)
-     }
+    }
   }
+
+  function HowManyCheckItems() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked')
+    return checkboxes.length
+  }
+
 
   function AddItemList(title) {
     if (massive === null) {
@@ -67,21 +74,29 @@ function App() {
       <div className='wrapper'>
         <h1 style={{ textAlign: 'center' }}>Shopping List</h1>
         <AddItem onCreate={ AddItemList } />
+        <br/>
+        <div style={{overflow: 'hidden'}}>
+         
+         <p  style={{float: 'left'}} style={{paddingLeft: '3rem'}}> { HowManyCheckItems() } items selected
+            { 
+              massive !== null
+              && massive.length > 1
+              && massive.some(item => item.complete === true)
+              && <button className='btnDeleteCheckAll' onClick={() => ClearLocalStorageWithCheckItems() }>Delete selected</button>
+            }
+           
+           
+            {
+              massive !== null
+              && massive.length > 1
+              && <button className='btnDeleteAll' onClick={() => ClearLocalStorage() }>Delete all</button>
+            }
+          </p>
+        </div>
         {
           massive !== null && massive.length ?
             <CurrentList massive={massive} onToggle={ToggleItem}/> :
             <h2>Empty shopping list</h2>
-        }
-        {
-          massive !== null
-          && massive.length > 1
-          && <button className='btnDeleteAll' onClick={() => ClearLocalStorage() }>Delete all</button>
-        }
-        {
-          massive !== null
-          && massive.length > 1
-          && massive.some(item => item.complete === true)
-          && <button className='btnDeleteAll' onClick={() => ClearLocalStorageWithCheckItems() }>Delete check</button>
         }
       </div>
     </Context.Provider>
