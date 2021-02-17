@@ -75,22 +75,11 @@ function App() {
         <h1 style={{ textAlign: 'center' }}>Shopping List</h1>
         <AddItem onCreate={ AddItemList } />
         <br/>
-        <div style={{overflow: 'hidden'}}>
-         
-         <p  style={{float: 'left'}} style={{paddingLeft: '3rem'}}> { HowManyCheckItems() } items selected
-            { 
-              massive !== null
-              && massive.length > 1
-              && massive.some(item => item.complete === true)
-              && <button className='btnDeleteCheckAll' onClick={() => ClearLocalStorageWithCheckItems() }>Delete selected</button>
-            }
-           
-           
-            {
-              massive !== null
-              && massive.length > 1
-              && <button className='btnDeleteAll' onClick={() => ClearLocalStorage() }>Delete all</button>
-            }
+        <div style={{ overflow: 'hidden' }}>
+
+          <p  style={{ float: 'left' }} style={{ paddingLeft: '3rem' }}> { HowManyCheckItems() } items selected
+            <button disabled={!massive || !massive.some(item => item.complete === true) } className='btnDeleteCheckAll' onClick={() => ClearLocalStorageWithCheckItems() }>Delete selected</button>
+            <button disabled={!massive || massive.length === 0} className='btnDeleteAll' onClick={() => ClearLocalStorage() }>Delete all</button>
           </p>
         </div>
         {

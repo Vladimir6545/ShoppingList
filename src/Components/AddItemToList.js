@@ -27,8 +27,6 @@ const styles = {
     },
     div: {
         borderBottom: '2px solid #F8F8F8',
-        
-
     }
 }
 
